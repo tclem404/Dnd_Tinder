@@ -67,7 +67,10 @@ class MyAppHome extends State<MyApp> {
     ),
     Center(child: Text('Settings')),
   ];
-  
+
+  // just some random comments to tests commits with github
+  //ignore these
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
