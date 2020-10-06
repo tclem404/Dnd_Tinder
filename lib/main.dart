@@ -13,6 +13,7 @@ class MyAppHome extends State<MyApp> {
   // This widget is the root of your application.
   int _slide = 0;
   static bool _homeBrew = false;
+  static bool _dm = false;
 
   var tabs = [
     Scaffold(
@@ -46,6 +47,17 @@ class MyAppHome extends State<MyApp> {
                 value: MyAppHome._homeBrew,
                 onChanged: (bool val){
                   MyAppHome._homeBrew = !MyAppHome._homeBrew;
+                },
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Text('Are you a DM?'),
+              Checkbox(
+                value: _dm,
+                onChanged: (bool val){
+                  MyAppHome._dm = !MyAppHome._dm;
                 },
               )
             ],
