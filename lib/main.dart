@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'login_page.dart';
+import 'sign_in.dart';
+import 'first_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,15 +15,35 @@ class MyApp extends StatefulWidget{
 class MyAppHome extends State<MyApp> {
   // This widget is the root of your application.
   int _slide = 0;
-  static bool _homeBrew = false;
-  static bool _dm = false;
+
+  // Settings for Character
+  bool _homeBrew = false;
+  bool _dm = false;
+  String _class = 'None';
+
+  //Settings for cosemetics
+  Color _backColor;
+  Color _frontColor;
+  Color _textColor;
+
+  //Sign-in stuff
+  bool _signedIn = false;
+
+  //Tabs for App
+  LoginPage page = new LoginPage(Colors.white10, Colors.red[600], Colors.white);
 
   var tabs = [
-    Scaffold(
+    Scaffold(),Scaffold(),Scaffold(),Scaffold()
+  ];
+
+  // just some random comments to tests commits with github
+  //ignore these
+  String onRun(BuildContext _context){
+    tabs[0] = Scaffold(
       backgroundColor: Colors.white10,
       appBar: AppBar(
         title: Center(
-          child: Text('Welcome to [Name not yet decided]'),
+          child: Text('Welcome to [Name not yet decided]', style: TextStyle(fontSize: 20),),
         ),
         backgroundColor: Colors.red[600],
       ),
@@ -31,57 +54,109 @@ class MyAppHome extends State<MyApp> {
           width: 300,
         ),
       ),
-    ),
-    Center(child: Text('Matches')),
-    Scaffold(
+    );
+    tabs[1] = Scaffold(
+      backgroundColor: Colors.white10,
+        body: Center(child: Text('Matches', style: TextStyle(color: Colors.white, fontSize: 30),))
+    );
+    tabs[2] = Scaffold(
       backgroundColor: Colors.white10,
       body: Column(
         children: [
           Center(
-            child: Text('Account Details'),
+            child: Column(
+          children: [
+            Text('', style: TextStyle(fontSize: 30),),
+            Text('Account Details',  style: TextStyle(color: Colors.white, fontSize: 30),),],
+      )
           ),
           Row(
             children: [
-              Text('Do you play with Home Brew?'),
+              Text('', style: TextStyle(fontSize: 10),),
+              Text('  Do you play with Home Brew? ', style: TextStyle(color: Colors.white, fontSize: 20),),
               Checkbox(
-                value: MyAppHome._homeBrew,
+                value: _homeBrew,
+                focusColor: Colors.white,
+                activeColor: Colors.red[600],
+                checkColor: Colors.white,
                 onChanged: (bool val){
-                  MyAppHome._homeBrew = !MyAppHome._homeBrew;
+                  setState(() {
+                    _homeBrew = val;
+                  });
                 },
               )
             ],
           ),
           Row(
             children: [
-              Text('Are you a DM?'),
+              Text('  Are you a DM? ', style: TextStyle(color: Colors.white, fontSize: 20),),
               Checkbox(
+                focusColor: Colors.white,
+                activeColor: Colors.red[600],
+                checkColor: Colors.white,
                 value: _dm,
                 onChanged: (bool val){
-                  MyAppHome._dm = !MyAppHome._dm;
+                  setState(() {
+                    _dm = !_dm;
+                  });
                 },
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Text('  Favorite Class?     ', style: TextStyle(color: Colors.white, fontSize: 20),),
+              DropdownButton<String>(
+                value: _class,
+                style: TextStyle(color: Colors.white, fontSize: 20,),
+                dropdownColor: Colors.red[600],
+                onChanged: (String newVal){
+                  setState(() {
+                    _class = newVal;
+                  });
+                },
+                //copied from Flutter documentation at: https://api.flutter.dev/flutter/material/DropdownButton-class.html
+                items: [
+                  DropdownMenuItem(
+                    value: 'None',
+                    child: Text('None'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Cleric',
+                    child: Text('Cleric'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Bard',
+                    child: Text('Bard'),
+                  )
+                ],
               )
             ],
           )
         ],
       ),
-    ),
-    Center(child: Text('Settings')),
-  ];
-
-  // just some random comments to tests commits with github
-  //ignore these
+    );
+    tabs[3] = page.getPage(_context);
+    return 'Flutter Demo';
+  }
 
   @override
   Widget build(BuildContext context) {
+    _backColor = Colors.white10;
+    _frontColor = Colors.red[600];
+    _textColor = Colors.white;
+
     return MaterialApp(
-      title: 'Flutter Demo',
+      // The Slides
+      title: onRun(context), // Really janky solution, but it works
       home: Scaffold(
         body: tabs[_slide],
-        backgroundColor: Colors.white10,
+        backgroundColor: _backColor,
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _slide,
           onTap: (index){
             setState(() {
+              tabs[3] = page.getPage(context);
               _slide = index;
             });
           },
@@ -115,4 +190,3 @@ class MyAppHome extends State<MyApp> {
     );
   }
 }
-

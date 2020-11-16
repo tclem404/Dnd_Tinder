@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1087209949842",
+    "firebase_url": "https://dnd-tinder.firebaseio.com",
+    "project_id": "dnd-tinder",
+    "storage_bucket": "dnd-tinder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087209949842:android:c110771cca5a09c0d9744b",
+        "android_client_info": {
+          "package_name": "com.example.dnd_tinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087209949842-g7kpprqbgud8jvi7nhg5hhulm5ph8qov.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dnd_tinder",
+            "certificate_hash": "b713d6f798780a1919027ad3e7610a3055efe1d4"
+          }
+        },
+        {
+          "client_id": "1087209949842-ma757e8pjeq9hr6h0fv6b1l6ek4cpitn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArgLBXvg8A97_0TXWjxycyAB0X7B2suEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087209949842-ma757e8pjeq9hr6h0fv6b1l6ek4cpitn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
