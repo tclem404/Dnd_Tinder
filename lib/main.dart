@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import 'main_screen.dart';
 import 'sign_in.dart';
 import 'first_screen.dart';
 
@@ -21,16 +22,17 @@ class MyAppHome extends State<MyApp> {
   bool _dm = false;
   String _class = 'None';
 
-  //Settings for cosemetics
-  Color _backColor;
-  Color _frontColor;
-  Color _textColor;
+  //Settings for cosmetics, ill get around to it
+  Color _backColor = Colors.white10;
+  Color _frontColor = Colors.red[600];
+  Color _textColor = Colors.white;
 
   //Sign-in stuff
   bool _signedIn = false;
 
   //Tabs for App
   LoginPage page = new LoginPage(Colors.white10, Colors.red[600], Colors.white);
+  MainScreen mainSc = new MainScreen(Colors.white10, Colors.red[600], Colors.white);
 
   var tabs = [
     Scaffold(),Scaffold(),Scaffold(),Scaffold()
@@ -39,22 +41,7 @@ class MyAppHome extends State<MyApp> {
   // just some random comments to tests commits with github
   //ignore these
   String onRun(BuildContext _context){
-    tabs[0] = Scaffold(
-      backgroundColor: Colors.white10,
-      appBar: AppBar(
-        title: Center(
-          child: Text('Welcome to [Name not yet decided]', style: TextStyle(fontSize: 20),),
-        ),
-        backgroundColor: Colors.red[600],
-      ),
-      body: Center(
-        child: Image(
-          image: AssetImage('icons/d20(1).png'),
-          height: 300,
-          width: 300,
-        ),
-      ),
-    );
+    tabs[0] = mainSc.getPage();
     tabs[1] = Scaffold(
       backgroundColor: Colors.white10,
         body: Center(child: Text('Matches', style: TextStyle(color: Colors.white, fontSize: 30),))
@@ -156,11 +143,12 @@ class MyAppHome extends State<MyApp> {
           currentIndex: _slide,
           onTap: (index){
             setState(() {
+              tabs[0] = mainSc.getPage();
               tabs[3] = page.getPage(context);
               _slide = index;
             });
           },
-          backgroundColor: Colors.red[600],
+          backgroundColor: _frontColor,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white24,
           items: [
