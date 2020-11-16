@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'sign_in.dart';
 
 class LoginPage{
-  Scaffold page;
   bool _signedIn;
   Color _backColor;
   Color _frontColor;
@@ -24,17 +23,17 @@ class LoginPage{
         body: Center(
           child: Column(
             children: [
-              Text('     ', style: TextStyle(fontSize: 15),),
-              Text('     ', style: TextStyle(fontSize: 15),),
-              Text('Currently: ' + (_signedIn ? 'Signed In' : 'Not Signed In'), style: TextStyle(fontSize: 15),),
-              Text('     ', style: TextStyle(fontSize: 15),),
+              Text('     ', style: TextStyle(fontSize: 15, color: _textColor),),
+              Text('     ', style: TextStyle(fontSize: 15, color: _textColor),),
+              Text('Currently: ' + (_signedIn ? 'Signed In' : 'Not Signed In'), style: TextStyle(fontSize: 15, color: _textColor),),
+              Text('     ', style: TextStyle(fontSize: 15, color: _textColor),),
               Row(
                 children: [
 // Image is being difficult for no reason
 /*Image(
               image: AssetImage('icons/google_logo.png'),
             ),*/
-                  Text('                            ', style: TextStyle(fontSize: 15),),
+                  Text('                            ', style: TextStyle(fontSize: 15, color: _textColor),),
 
                   Center(
                       child: RaisedButton(
@@ -45,7 +44,7 @@ class LoginPage{
                           Scaffold page = getPage(_context);
                           return page;
                         },
-                        child: Text('Sign out of Google', style: TextStyle(fontSize: 20),),
+                        child: Text('Sign out of Google', style: TextStyle(fontSize: 20, color: _textColor),),
                       )
                   ),
                 ],
@@ -60,17 +59,17 @@ class LoginPage{
         body: Center(
           child: Column(
             children: [
-              Text('     ', style: TextStyle(fontSize: 15),),
-              Text('     ', style: TextStyle(fontSize: 15),),
-              Text('Currently: ' + (_signedIn ? 'Signed In' : 'Not Signed In'), style: TextStyle(fontSize: 15),),
-              Text('     ', style: TextStyle(fontSize: 15),),
+              Text('     ', style: TextStyle(fontSize: 15, color: _textColor),),
+              Text('     ', style: TextStyle(fontSize: 15, color: _textColor),),
+              Text('Currently: ' + (_signedIn ? 'Signed In' : 'Not Signed In'), style: TextStyle(fontSize: 15, color: _textColor),),
+              Text('     ', style: TextStyle(fontSize: 15, color: _textColor),),
               Row(
                 children: [
 // Image is being difficult for no reason
 /*Image(
               image: AssetImage('icons/google_logo.png'),
             ),*/
-                  Text('                            ', style: TextStyle(fontSize: 15),),
+                  Text('                            ', style: TextStyle(fontSize: 15, color: _textColor),),
 
                   Center(
                       child: RaisedButton(
@@ -91,7 +90,7 @@ class LoginPage{
                             }
                           });
                         },
-                        child: Text('Sign in with Google', style: TextStyle(fontSize: 20),),
+                        child: Text('Sign in with Google', style: TextStyle(fontSize: 20, color: _textColor),),
                       )
                   ),
                 ],
@@ -110,4 +109,15 @@ class LoginPage{
     return _signedIn;
   }
 
+  void setBackColor(Color col){
+    _backColor = col;
+  }
+
+  void setFrontColor(Color col){
+    _frontColor = col;
+  }
+
+  void setTextColor(Color col){
+    _textColor = col;
+  }
 }
