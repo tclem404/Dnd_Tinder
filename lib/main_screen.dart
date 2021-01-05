@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login.dart';
 
 class MainScreen{
   Color _backColor;
@@ -11,7 +12,7 @@ class MainScreen{
     _textColor = txt;
   }
 
-  Scaffold getPage(){
+  Scaffold getPage(BuildContext context){
     Scaffold page;
     page = Scaffold(
       backgroundColor: _backColor,
@@ -22,11 +23,13 @@ class MainScreen{
         backgroundColor: _frontColor,
       ),
       body: Center(
-        child: Image(
-          image: AssetImage('icons/d20(1).png'),
-          height: 300,
-          width: 300,
-        ),
+        child: FloatingActionButton(
+          child: Icon(Icons.account_circle),
+          backgroundColor: Colors.red[600],
+          onPressed: (() {
+            Navigator.push(context, new MaterialPageRoute(builder: (context) => new LoginSc()));
+          }),
+        )
       ),
     );
 
@@ -44,5 +47,17 @@ class MainScreen{
 
   void setTextColor(Color col){
     _textColor = col;
+  }
+}
+
+class Mn extends StatefulWidget {
+  @override
+  _MnState createState() => _MnState();
+}
+
+class _MnState extends State<Mn> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
