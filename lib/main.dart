@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 import 'settings.dart';
 import 'matches.dart';
+import 'vari.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,217 +16,10 @@ class MyApp extends StatefulWidget{
 
 class MyAppHome extends State<MyApp> {
   // This widget is the root of your application.
-  int _slide = 0;
-
-  // Settings for Character
-  bool _homeBrew = false;
-  bool _dm = false;
-  String _class = 'None';
-
-  //Settings for cosmetics, ill get around to it
-  Color _backColor = Colors.white10;
-  Color _frontColor = Colors.red[600];
-  Color _textColor = Colors.white;
-
-  //Sign-in stuff
-  bool _signedIn = false;
-
-  //Tabs for App
-  /* LoginPage page = new LoginPage(Colors.white10, Colors.red[600], Colors.white);
-  MainScreen mainSc = new MainScreen(Colors.white10, Colors.red[600], Colors.white);
-
-  var tabs = [
-    Scaffold(),Scaffold(),Scaffold(),Scaffold()
-  ];
-
-  // just some random comments to tests commits with github
-  //ignore these
-  String onRun(BuildContext _context){
-    tabs[0] = mainSc.getPage(context);
-    tabs[1] = Scaffold(
-      backgroundColor: Colors.white10,
-        body: Center(child: Text('Matches', style: TextStyle(color: Colors.white, fontSize: 30),))
-    );
-    tabs[2] = Scaffold(
-      backgroundColor: Colors.white10,
-      body: Column(
-        children: [
-          Center(
-            child: Column(
-          children: [
-            Text('', style: TextStyle(fontSize: 30),),
-            Text('Account Details',  style: TextStyle(color: Colors.white, fontSize: 30),),],
-      )
-          ),
-          Row(
-            children: [
-              Text('', style: TextStyle(fontSize: 10),),
-              Text('  Do you play with Home Brew? ', style: TextStyle(color: Colors.white, fontSize: 20),),
-              Checkbox(
-                value: _homeBrew,
-                focusColor: Colors.white,
-                activeColor: Colors.red[600],
-                checkColor: Colors.white,
-                onChanged: (bool val){
-                  setState(() {
-                    _homeBrew = val;
-                  });
-                },
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Text('  Are you a DM? ', style: TextStyle(color: Colors.white, fontSize: 20),),
-              Checkbox(
-                focusColor: Colors.white,
-                activeColor: Colors.red[600],
-                checkColor: Colors.white,
-                value: _dm,
-                onChanged: (bool val){
-                  setState(() {
-                    _dm = !_dm;
-                  });
-                },
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Text('  Favorite Class?     ', style: TextStyle(color: Colors.white, fontSize: 20),),
-              DropdownButton<String>(
-                value: _class,
-                style: TextStyle(color: Colors.white, fontSize: 20,),
-                dropdownColor: Colors.red[600],
-                onChanged: (String newVal){
-                  setState(() {
-                    _class = newVal;
-                  });
-                },
-                //copied from Flutter documentation at: https://api.flutter.dev/flutter/material/DropdownButton-class.html
-                items: [
-                  DropdownMenuItem(
-                    value: 'None',
-                    child: Text('None'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'Cleric',
-                    child: Text('Cleric'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'Bard',
-                    child: Text('Bard'),
-                  )
-                ],
-              )
-            ],
-          )
-        ],
-      ),
-    );
-    tabs[3] = page.getPage(_context);
-    return 'Flutter Demo';
-  }
-
-
-  Scaffold getPage(_context){
-    Scaffold page;
-
-    if(_signedIn){
-      page = Scaffold(
-        backgroundColor: _backColor,
-        body: Center(
-          child: Column(
-            children: [
-              Text('     ', style: TextStyle(fontSize: 15, color: _textColor),),
-              Text('     ', style: TextStyle(fontSize: 15, color: _textColor),),
-              Text('Currently: ' + (_signedIn ? 'Signed In' : 'Not Signed In'), style: TextStyle(fontSize: 15, color: _textColor),),
-              Text('     ', style: TextStyle(fontSize: 15, color: _textColor),),
-              Row(
-                children: [
-// Image is being difficult for no reason
-/*Image(
-              image: AssetImage('icons/google_logo.png'),
-            ),*/
-                  Text('                            ', style: TextStyle(fontSize: 15, color: _textColor),),
-
-                  Center(
-                      child: RaisedButton(
-                        textColor: _textColor,
-                        color: _frontColor,
-                        onPressed: (){
-                          _signedIn = false;
-                          Scaffold page = getPage(_context);
-                          setState(() {
-                            tabs[3] = page;
-                          });
-                          return page;
-                        },
-                        child: Text('Sign out of Google', style: TextStyle(fontSize: 20, color: _textColor),),
-                      )
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      );
-    }else{
-      page = Scaffold(
-        backgroundColor: _backColor,
-        body: Center(
-          child: Column(
-            children: [
-              Text('     ', style: TextStyle(fontSize: 15, color: _textColor),),
-              Text('     ', style: TextStyle(fontSize: 15, color: _textColor),),
-              Text('Currently: ' + (_signedIn ? 'Signed In' : 'Not Signed In'), style: TextStyle(fontSize: 15, color: _textColor),),
-              Text('     ', style: TextStyle(fontSize: 15, color: _textColor),),
-              Row(
-                children: [
-// Image is being difficult for no reason
-/*Image(
-              image: AssetImage('icons/google_logo.png'),
-            ),*/
-                  Text('                            ', style: TextStyle(fontSize: 15, color: _textColor),),
-
-                  Center(
-                      child: RaisedButton(
-                        textColor: _textColor,
-                        color: _frontColor,
-                        onPressed: (){
-                          _signedIn = true;
-                          signInWithGoogle().then((result) {
-                          });
-                          setState(() {
-                            page = getPage(_context);
-                            tabs[3] = page;
-                            _slide = 2;
-                          });
-                          return page;
-                        },
-                        child: Text('Sign in with Google', style: TextStyle(fontSize: 20, color: _textColor),),
-                      )
-                  ),
-                ],
-              ),
-
-            ],
-          ),
-        ),
-      );
-    }
-
-    return page;
-  }
-
-   */
 
   @override
   Widget build(BuildContext context) {
-    // same as Vari Class
-    _backColor = Colors.white10;
-    _frontColor = Colors.red[600];
-    _textColor = Colors.white;
+    // use Vari Class to get front, back, and text colors
 
     //Don't touch, needed for Navigator
     return MaterialApp(
@@ -282,7 +76,14 @@ class HomeScreen extends StatelessWidget{
                 color: Colors.red[600],
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
                 onPressed: (() {
-                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new SettingsSc()));
+                  if(Vari.getSignedIn()){
+                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new SettingsSc()));
+                  }else{
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => buildPopupDialog(context, 'You must be signed in to edit Account Settings'),
+                    );
+                  }
                 }),
               ),
               Text(" ", style: TextStyle(fontSize: 20),),

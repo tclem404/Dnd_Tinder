@@ -4,6 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'database.dart';
+import 'vari.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -29,6 +32,14 @@ Future<String> signInWithGoogle() async {
     final User currentUser = _auth.currentUser;
     assert(user.uid == currentUser.uid);
 
+    UserSaver.setUser(user);
+
+    // database stuff
+    Vari.setUid(user.uid);
+    DatabaseService db = DatabaseService(uid: user.uid);
+    await db.createUserData();
+    Vari.setDatabase(db);
+
     print('signInWithGoogle succeeded: $user');
 
     return '$user';
@@ -38,8 +49,21 @@ Future<String> signInWithGoogle() async {
 }
 void signOutGoogle() async{
   await googleSignIn.signOut();
+  Vari.setDatabase(null);
 
   print("User Signed Out");
+}
+
+class UserSaver{
+  static User user;
+
+  static void setUser(User _user){
+    user = _user;
+  }
+
+  static User getUser(){
+    return user;
+  }
 }
 
 class FirstScreen extends StatelessWidget{
