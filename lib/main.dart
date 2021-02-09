@@ -4,6 +4,7 @@ import 'login.dart';
 import 'settings.dart';
 import 'matches.dart';
 import 'vari.dart';
+import 'theme_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -100,6 +101,19 @@ class HomeScreen extends StatelessWidget{
                   Navigator.push(context, new MaterialPageRoute(builder: (context) => new LoginSc()));
                 }),
               ),
+              Text(" ", style: TextStyle(fontSize: 20),),
+              RaisedButton(
+                child: Row(
+                  children: [
+                    Text('          Theme', style: TextStyle(fontSize: 18, color: _textColor),)
+                  ],
+                ),
+                color: Colors.red[600],
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
+                onPressed: (() {
+                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new ThemeSc()));
+                })
+              )
             ]
           ),
         padding: EdgeInsets.fromLTRB(110, 100, 110, 15),
