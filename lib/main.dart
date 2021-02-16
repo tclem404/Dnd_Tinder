@@ -4,7 +4,8 @@ import 'login.dart';
 import 'settings.dart';
 import 'matches.dart';
 import 'vari.dart';
-import 'theme_page.dart';
+import 'color_page.dart';
+import 'main2.dart';
 
 void main() {
   runApp(MyApp());
@@ -63,6 +64,7 @@ class HomeScreen extends StatelessWidget{
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
                 onPressed: (() {
                   // Function to move to a screen, just replace 'MatchesSc' with you Stateless/ful widget to use in THIS widget
+                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new MainScreen()));
                   Navigator.push(context, new MaterialPageRoute(builder: (context) => new MatchesSc()));
                 }),
               ),
@@ -78,6 +80,7 @@ class HomeScreen extends StatelessWidget{
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
                 onPressed: (() {
                   if(Vari.getSignedIn()){
+                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new MainScreen()));
                     Navigator.push(context, new MaterialPageRoute(builder: (context) => new SettingsSc()));
                   }else{
                     showDialog(
@@ -98,6 +101,7 @@ class HomeScreen extends StatelessWidget{
                 color: Colors.red[600],
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
                 onPressed: (() {
+                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new MainScreen()));
                   Navigator.push(context, new MaterialPageRoute(builder: (context) => new LoginSc()));
                 }),
               ),
@@ -105,13 +109,15 @@ class HomeScreen extends StatelessWidget{
               RaisedButton(
                 child: Row(
                   children: [
+                    Icon(Icons.format_paint, color: _textColor),
                     Text('          Theme', style: TextStyle(fontSize: 18, color: _textColor),)
                   ],
                 ),
                 color: Colors.red[600],
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
                 onPressed: (() {
-                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new ThemeSc()));
+                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new MainScreen()));
+                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new ColorScreen()));
                 })
               )
             ]
