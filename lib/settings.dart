@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'vari.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import 'userList.dart';
 
 class SettingsSc extends StatefulWidget {
   @override
@@ -14,7 +15,6 @@ class _SettingsScState extends State<SettingsSc> {
   static bool _dm = Vari.getDm();
   static var _class = Vari.getFavClass();
   static var _edition = Vari.getFavEdition();
-
 
   @override
   Widget build(BuildContext _context) {
@@ -159,6 +159,7 @@ class _SettingsScState extends State<SettingsSc> {
                         )
                       ],
                     ),
+                    UserList(),
                   ],
                 ),
               ],

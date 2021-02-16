@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dnd_tinder/sign_in.dart';
+import 'package:flutter/cupertino.dart';
+import 'user.dart';
 
 // all from code ninja's tutorials found in this playlist (specifically 16-18)\
 // https://www.youtube.com/playlist?list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC
@@ -39,6 +41,18 @@ class DatabaseService{
     });
 
     }
+
+    // User List from stream
+  List<User> _userListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((doc){
+      return User(
+        uid: doc.id,
+        name: doc.data()['name'],
+        dm: doc.data()['dm'],
+
+      );
+    });
+  }
 
     // getting a stream (?)
     Stream<QuerySnapshot> get userInfo{
