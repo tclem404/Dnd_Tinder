@@ -12,7 +12,6 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
 
 Future<String> signInWithGoogle() async {
-  await Firebase.initializeApp();
 
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
   final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
@@ -37,7 +36,8 @@ Future<String> signInWithGoogle() async {
     // database stuff
     Vari.setUid(user.uid);
     DatabaseService db = DatabaseService(uid: user.uid);
-    await db.createUserData();
+    Vari.setName(user.displayName);
+    await db.createUserData(user.displayName);
     Vari.setDatabase(db);
 
     print('signInWithGoogle succeeded: $user');

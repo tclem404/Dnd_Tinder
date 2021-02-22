@@ -4,6 +4,8 @@ import 'vari.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'userList.dart';
+import 'user.dart';
+import 'main2.dart';
 
 class SettingsSc extends StatefulWidget {
   @override
@@ -16,11 +18,30 @@ class _SettingsScState extends State<SettingsSc> {
   static var _class = Vari.getFavClass();
   static var _edition = Vari.getFavEdition();
 
+  static int _index = -1;
+
+  static bool _once = false;
+
   @override
   Widget build(BuildContext _context) {
-    return StreamProvider<QuerySnapshot>.value(
-      value: DatabaseService().userInfo,
-      child: MaterialApp(
+    final users = Provider.of<List<DnDUser>>(_context);
+
+    if(!_once) {
+      for (int i = 0; i < users.length; i++) {
+        if (Vari.getUid() == users[i].uid) {
+          _index = i;
+        }
+      }
+
+      _homeBrew = users[_index].homebrew;
+      _dm = users[_index].dm;
+      _class = users[_index].favClass;
+      _edition = users[_index].edition;
+
+      _once = !_once;
+    }
+
+    return MaterialApp(
         home: Scaffold(
           appBar: AppBar(
             backgroundColor: Vari.getFrontColor(),
@@ -159,7 +180,6 @@ class _SettingsScState extends State<SettingsSc> {
                         )
                       ],
                     ),
-                    UserList(),
                   ],
                 ),
               ],
@@ -172,7 +192,7 @@ class _SettingsScState extends State<SettingsSc> {
             backgroundColor: Vari.getFrontColor(),
             onPressed: (){
               if(Vari.getSignedIn()){
-                Vari.getDatabase().updateUserData(_dm, 'New User', 1, 1, 1, _class, _edition);
+                Vari.getDatabase().updateUserData(_dm, _homeBrew, Vari.getName(), 1, 1, 1, _class, _edition);
               }else{
                 showDialog(
                   context: context,
@@ -182,8 +202,7 @@ class _SettingsScState extends State<SettingsSc> {
             },
           ),
         ),
-      ),
-    );
+      );
   }
 }
 

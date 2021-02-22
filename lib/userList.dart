@@ -12,11 +12,12 @@ class _UserListState extends State<UserList> {
   @override
   Widget build(BuildContext context) {
 
-    final users = Provider.of<QuerySnapshot>(context);
+    final users = Provider.of<List<DnDUser>>(context);
 
-    for (var doc in users.docs){
-      print(doc.data());
-    }
+    users.forEach((user) {
+      print(user.uid);
+      print(user.name);
+    });
 
     return Container();
   }
