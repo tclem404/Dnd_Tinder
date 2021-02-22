@@ -1,8 +1,10 @@
 import 'package:dnd_tinder/database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'vari.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'userList.dart';
+import 'main.dart';
 
 class ColorScreen extends StatefulWidget {
   @override
@@ -14,10 +16,19 @@ class _ColorScreenState extends State<ColorScreen> {
 
   @override
   Widget build(BuildContext _context) {
+    // ignore: missing_return
+    Color getColor() {
+      if (_txt == 1) {
+        return Colors.red;
+      } else if (_txt == 2) {
+        return Colors.blue;
+      }
+    }
+
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            backgroundColor: Vari.getFrontColor(),
+            backgroundColor: (getColor()),
             title: Row(
               children: [
                 IconButton(
@@ -52,11 +63,14 @@ class _ColorScreenState extends State<ColorScreen> {
                       items: [
                         DropdownMenuItem(
                           value: 1,
-                          child: Text('White', style: TextStyle(color: Colors.white)),
+                          child: Text('Red', style: TextStyle(color: Colors.red)),
+                          onTap: (){
+
+                          }
                         ),
                         DropdownMenuItem(
                           value: 2,
-                          child: Text('Black', style: TextStyle(color: Colors.black)),
+                          child: Text('Blue', style: TextStyle(color: Colors.blue)),
                         ),
                         DropdownMenuItem(
                           value: 3,
