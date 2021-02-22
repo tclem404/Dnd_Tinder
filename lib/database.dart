@@ -15,27 +15,24 @@ class DatabaseService{
   DatabaseService({ this.uid });
 
   // for creation
-  Future createUserData() async{
+  Future createUserData(String name) async{
     final possibleDoc = await users.doc(uid).get();
     if(!possibleDoc.exists){
-      return this.updateUserData(false, 'New User', 1, 1, 1, 'none', 'none');
+      return this.updateUserData(false, false, name, 1, 1, 1, 'none', 'none');
     }
     return null;
   }
 
   // for updating, pass in what changed, should have access to all varibles at all times
   // so adding all in one shouldnt be an issue
-  Future updateUserData(bool _dm, String name, int _frontCol, int _backCol, int _textCol, String _favClass, String _edition) async {
-    await users.doc(uid).set({
+  Future updateUserData(bool _dm, bool _homebrew, String name, int _frontCol, int _backCol, int _textCol, String _favClass, String _edition) async {
+    return await users.doc(uid).set({
       'dm':_dm,
+      'homebrew': _homebrew,
       'name':name,
-    });
-    await users.doc(uid).collection('Prefrences').doc('Cosmetic').set({
       'frontCol': _frontCol,
       'backCol': _backCol,
       'textCol': _textCol,
-    });
-    return await users.doc(uid).collection('Prefrences').doc('Gameplay').set({
       'edition': _edition,
       'favClass': _favClass,
     });
@@ -43,20 +40,26 @@ class DatabaseService{
     }
 
     // User List from stream
-  List<User> _userListFromSnapshot(QuerySnapshot snapshot){
+  List<DnDUser> _userListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
-      return User(
-        uid: doc.id,
-        name: doc.data()['name'],
-        dm: doc.data()['dm'],
-
+      return DnDUser(
+        uid: doc.id.toString(),
+        name: doc.data()['name'].toString() ?? 'New User',
+        dm: doc.data()['dm'] ?? false,
+        homebrew: doc.data()['homebrew'] ?? false,
+        frontCol: doc.data()['frontCol'] ?? 1,
+        backCol: doc.data()['backCol'] ?? 1,
+        textCol: doc.data()['textCol'] ?? 1,
+        edition: doc.data()['edition'].toString() ?? 'None',
+        favClass: doc.data()['favClass'].toString() ?? 'None',
       );
-    });
+    }).toList();
   }
 
+
     // getting a stream (?)
-    Stream<QuerySnapshot> get userInfo{
-      return users.snapshots();
+    Stream<List<DnDUser>> get userInfo{
+      return users.snapshots().map(_userListFromSnapshot);
     }
 
 }

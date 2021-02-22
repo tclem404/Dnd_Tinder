@@ -1,11 +1,16 @@
 import 'package:dnd_tinder/matches.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'login.dart';
 import 'settings.dart';
 import 'matches.dart';
 import 'vari.dart';
 import 'color_page.dart';
 import 'main2.dart';
+import 'package:provider/provider.dart';
+import 'user.dart';
+import 'database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,10 +28,15 @@ class MyAppHome extends State<MyApp> {
   Widget build(BuildContext context) {
     // use Vari Class to get front, back, and text colors
 
+    Firebase.initializeApp();
+
     //Don't touch, needed for Navigator
-    return MaterialApp(
-      // The Slides
-      home: new HomeScreen(),
+    return StreamProvider<List<DnDUser>>.value(
+      value: DatabaseService().userInfo,
+      child: MaterialApp(
+        // The Slides
+        home: new HomeScreen(),
+      ),
     );
   }
 }
@@ -39,6 +49,7 @@ class HomeScreen extends StatelessWidget{
     Color _backColor = Colors.white10;
     Color _frontColor = Colors.red[600];
     Color _textColor = Colors.white;
+    Firebase.initializeApp();
 
     return Scaffold(
       backgroundColor: _backColor,

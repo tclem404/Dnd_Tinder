@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // solution to getting global variables, janky but it works fine
 class Vari{
+  static String _name = 'New User';
 
   static Color _backColor = Colors.white10;
   static Color _frontColor = Colors.red[600];
@@ -105,5 +106,13 @@ class Vari{
 
   static String getUid(){
     return _uid;
+  }
+
+  static void setName(String uid){
+    _name = uid;
+  }
+
+  static String getName(){
+    return _name;
   }
 }
