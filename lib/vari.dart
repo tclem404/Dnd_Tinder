@@ -19,6 +19,8 @@ class Vari{
   static String _favClass = 'None';
   static String _edition= 'None';
 
+  static int _i = -1;
+
   static void signIn(){
     if(_db != null){
 
@@ -115,4 +117,13 @@ class Vari{
   static String getName(){
     return _name;
   }
+
+  static void setIndex(int i){
+    _i = i;
+  }
+
+  static int getIndex(){
+    return _i;
+  }
+
 }

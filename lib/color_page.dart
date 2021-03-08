@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'vari.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'userList.dart';
 import 'main.dart';
 
 class ColorScreen extends StatefulWidget {
@@ -12,7 +11,7 @@ class ColorScreen extends StatefulWidget {
 }
 
 class _ColorScreenState extends State<ColorScreen> {
-  int _txt = 1;
+  static int _txt = 1;
 
   @override
   Widget build(BuildContext _context) {

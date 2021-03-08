@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'vari.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
-import 'userList.dart';
 import 'user.dart';
 import 'main2.dart';
 
@@ -32,6 +31,8 @@ class _SettingsScState extends State<SettingsSc> {
           _index = i;
         }
       }
+
+      Vari.setIndex(_index);
 
       _homeBrew = users[_index].homebrew;
       _dm = users[_index].dm;

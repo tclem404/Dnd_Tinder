@@ -42,7 +42,15 @@ class _MainScreenState extends State<MainScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
                   onPressed: (() {
                     // Function to move to a screen, just replace 'MatchesSc' with you Stateless/ful widget to use in THIS widget
-                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new MatchesSc()));
+                    if(Vari.getSignedIn()) {
+                      Navigator.push(context, new MaterialPageRoute(
+                          builder: (context) => new MatchesSc()));
+                    }else{
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => buildPopupDialog(context, 'You must be signed in to view Matches'),
+                      );
+                    }
                   }),
                 ),
                 Text(" ", style: TextStyle(fontSize: 20),), // Just spacing, need new solution Eventually, not now
