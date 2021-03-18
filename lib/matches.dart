@@ -20,11 +20,11 @@ class _MatchesScState extends State<MatchesSc> {
   int getNewMatch(List<DnDUser> users, Random rng){
     skipped.add(_i);
 
-    if(skipped.length - 1 == users.length && users.elementAt(_selfIndex).matchesSet == 0){
+    if(skipped.length - 1 == users.length && users.elementAt(_selfIndex).possibleMatches.length == 0){
       return -1;
     }
 
-    if(users.elementAt(_selfIndex).matchesSet == 0) {
+    if(users.elementAt(_selfIndex).possibleMatches.length == 0) {
       matched = false;
       while (users
           .elementAt(_i)
@@ -33,9 +33,7 @@ class _MatchesScState extends State<MatchesSc> {
       }
     }else{
       matched = true;
-      DnDUser curUser = users.elementAt(_selfIndex);
-      var uidToFind = 'null';
-      if(curUser.matchesSet == 1){uidToFind = curUser.match1;}else if(curUser.matchesSet == 2){uidToFind = curUser.match2;}else if(curUser.matchesSet == 3){uidToFind = curUser.match3;}else if(curUser.matchesSet == 4){uidToFind = curUser.match4;}
+      var uidToFind = users.elementAt(_selfIndex).possibleMatches.elementAt(users.elementAt(_selfIndex).possibleMatches.length - 1);
 
       _i = 0;
       while(users.elementAt(_i).uid != uidToFind){
@@ -59,7 +57,7 @@ class _MatchesScState extends State<MatchesSc> {
     Random rng = new Random();
     getSelfIndex(users);
 
-    if(users.elementAt(_selfIndex).matchesSet == 0) {
+    if(users.elementAt(_selfIndex).possibleMatches.length == 0) {
       matched = false;
       while (users
           .elementAt(_i)
@@ -69,8 +67,7 @@ class _MatchesScState extends State<MatchesSc> {
     }else{
       matched = true;
       DnDUser curUser = users.elementAt(_selfIndex);
-      var uidToFind = 'null';
-      if(curUser.matchesSet == 1){uidToFind = curUser.match1;}else if(curUser.matchesSet == 2){uidToFind = curUser.match2;}else if(curUser.matchesSet == 3){uidToFind = curUser.match3;}else if(curUser.matchesSet == 4){uidToFind = curUser.match4;}
+      var uidToFind = curUser.possibleMatches.elementAt(curUser.possibleMatches.length - 1);
 
       _i = 0;
       while(users.elementAt(_i).uid != uidToFind){
@@ -114,11 +111,9 @@ class _MatchesScState extends State<MatchesSc> {
                           DnDUser curUser = users.elementAt(_selfIndex);
                           setState(() {
                             if(matched) {
-                              if(curUser.matchesSet == 1){users.elementAt(_selfIndex).match1 = 'null';}else if(curUser.matchesSet == 2){users.elementAt(_selfIndex).match2 = 'null';}else if(curUser.matchesSet == 3){users.elementAt(_selfIndex).match3 = 'null';}else if(curUser.matchesSet == 4){users.elementAt(_selfIndex).match4 = 'null';}
+                              curUser.possibleMatches.removeLast();
 
-                              users.elementAt(_selfIndex).matchesSet--;
-
-                              Vari.getDatabase().updateMatches(curUser.uid, curUser.matchesSet, curUser.match1, curUser.match2, curUser.match3, curUser.match4, curUser.match5);
+                              Vari.getDatabase().updateMatches(curUser.uid, curUser.matchArr, curUser.possibleMatches);
 
                               _i = getNewMatch(users, rng);
                             }else{
@@ -137,9 +132,20 @@ class _MatchesScState extends State<MatchesSc> {
                         color: Vari.getFrontColor(),
                         onPressed: ((){
                           setState(() {
-                            DnDUser u = users.elementAt(_i);
-                            Vari.getDatabase().updateMatches(u.uid, u.matchesSet + 1, (u.matchesSet == 0 ? Vari.getUid() : u.match1), (u.matchesSet == 1 ? Vari.getUid() : u.match2), (u.matchesSet == 2 ? Vari.getUid() : u.match3), (u.matchesSet == 3 ? Vari.getUid() : u.match4), (u.matchesSet == 4 ? Vari.getUid() : u.match5));
-                            _i = getNewMatch(users, rng);
+                            if(!matched){
+                              DnDUser u = users.elementAt(_i);
+                              u.possibleMatches.add(Vari.getUid());
+                              Vari.getDatabase().updateMatches(u.uid, u.matchArr, u.possibleMatches);
+                              _i = getNewMatch(users, rng);
+                            }else{
+                              DnDUser curUser = users.elementAt(_selfIndex);
+                              DnDUser u = users.elementAt(_i);
+                              curUser.matchArr.add(u.uid);
+                              u.matchArr.add(curUser.uid);
+                              Vari.getDatabase().updateMatches(u.uid, u.matchArr, u.possibleMatches);
+                              Vari.getDatabase().updateMatches(curUser.uid, curUser.matchArr, curUser.possibleMatches);
+                              _i = getNewMatch(users, rng);
+                            }
                           });
                         }),
                       ),
@@ -149,15 +155,6 @@ class _MatchesScState extends State<MatchesSc> {
               ],
             ),
           ),
-        /*floatingActionButton: FloatingActionButton.extended(
-          icon: Icon(Icons.save_alt),
-          label: Text('Save'),
-          backgroundColor: Vari.getFrontColor(),
-          onPressed: (){
-            DnDUser curUser = users.elementAt(_selfIndex);
-            Vari.getDatabase().updateMatches(curUser.uid, curUser.matchesSet, curUser.match1, curUser.match2, curUser.match3, curUser.match4, curUser.match5);
-          },
-        ),*/
       ),
     );
   }

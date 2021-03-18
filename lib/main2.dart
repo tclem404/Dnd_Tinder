@@ -5,6 +5,7 @@ import 'settings.dart';
 import 'matches.dart';
 import 'vari.dart';
 import 'color_page.dart';
+import 'messages.dart';
 import 'package:provider/provider.dart';
 import 'user.dart';
 import 'database.dart';
@@ -100,6 +101,20 @@ class _MainScreenState extends State<MainScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
                     onPressed: (() {
                       Navigator.push(context, new MaterialPageRoute(builder: (context) => new ColorScreen()));
+                    })
+                ),
+                Text(" ", style: TextStyle(fontSize: 20),),
+                RaisedButton(
+                    child: Row(
+                      children: [
+                        Icon(Icons.message, color: Vari.getTextColor()),
+                        Text('          Messages', style: TextStyle(fontSize: 18, color: Vari.getTextColor()),)
+                      ],
+                    ),
+                    color: Colors.red[600],
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
+                    onPressed: (() {
+                      Navigator.push(context, new MaterialPageRoute(builder: (context) => new MessageSc()));
                     })
                 )
               ]

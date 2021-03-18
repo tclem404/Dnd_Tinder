@@ -28,12 +28,8 @@ class DatabaseService{
         'textCol': 1,
         'edition': 'None',
         'favClass': 'None',
-        'currentMatches': 0,
-        'match1':'null',
-        'match2':'null',
-        'match3':'null',
-        'match4':'null',
-        'match5':'null',
+        'matchArr':[],
+        'possibleMatches':[],
       });
     }
     return null;
@@ -41,7 +37,7 @@ class DatabaseService{
 
   // for updating, pass in what changed, should have access to all varibles at all times
   // so adding all in one shouldnt be an issue
-  Future updateUserData(bool _dm, bool _homebrew, String name, int _frontCol, int _backCol, int _textCol, String _favClass, String _edition) async {
+  Future updateUserData(bool _dm, bool _homebrew, String name, int _frontCol, int _backCol, int _textCol, String _favClass, String _edition, String _discord) async {
     return await users.doc(uid).update({
       'dm':_dm,
       'homebrew': _homebrew,
@@ -51,18 +47,15 @@ class DatabaseService{
       'textCol': _textCol,
       'edition': _edition,
       'favClass': _favClass,
+      'discord': _discord,
     });
 
     }
 
-    Future updateMatches(String newUid, int matchesSet, String m1, String m2, String m3, String m4, String m5) async{
+    Future updateMatches(String newUid, List mArr, List pMArr) async{
       return await users.doc(newUid).update({
-        'currentMatches': matchesSet,
-        'match1':m1,
-        'match2':m2,
-        'match3':m3,
-        'match4':m4,
-        'match5':m5,
+        'matchArr':mArr,
+        'possibleMatches':pMArr,
       });
 
     }
@@ -80,12 +73,9 @@ class DatabaseService{
         textCol: doc.data()['textCol'] ?? 1,
         edition: doc.data()['edition'].toString() ?? 'None',
         favClass: doc.data()['favClass'].toString() ?? 'None',
-        matchesSet: doc.data()['currentMatches'] ?? 0,
-        match1: doc.data()['match1'].toString() ?? 'null',
-        match2: doc.data()['match2'].toString() ?? 'null',
-        match3: doc.data()['match3'].toString() ?? 'null',
-        match4: doc.data()['match4'].toString() ?? 'null',
-        match5: doc.data()['match5'].toString() ?? 'null',
+        matchArr: doc.data()['matchArr'] ?? [],
+        possibleMatches: doc.data()['possibleMatches'] ?? [],
+        discord: doc.data()['discord'].toString() ?? '',
       );
     }).toList();
   }
