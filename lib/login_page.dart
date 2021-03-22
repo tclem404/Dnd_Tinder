@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'sign_in.dart';
-import 'main.dart';
+import 'Database/sign_in.dart';
+import 'Main Screens/main.dart';
 import 'vari.dart';
 
 class LoginPageState extends State<MyApp>{

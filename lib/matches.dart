@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'vari.dart';
-import 'user.dart';
+import 'Database/user.dart';
 import 'package:provider/provider.dart';
 import 'dart:math';
 import 'package:flutter/gestures.dart';
@@ -89,7 +89,16 @@ class _MatchesScState extends State<MatchesSc> {
                   Navigator.pop(_context);
                 }),
               ),
+              Spacer(),
               Center(child: Text('     Matches', style: TextStyle(fontSize: 20, color: Vari.getTextColor()),)),
+              Spacer(),
+              IconButton(
+                icon: Icon(Icons.settings),
+                color: Vari.getTextColor(),
+                onPressed: (() {
+                  Navigator.pop(_context);
+                }),
+              ),
             ],
           ),
         ),

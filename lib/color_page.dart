@@ -1,9 +1,9 @@
-import 'package:dnd_tinder/database.dart';
+import 'file:///C:/Users/Ty/AndroidStudioProjects/dnd_tinder/lib/Database/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'vari.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'main.dart';
+import 'Main Screens/main.dart';
 
 class ColorScreen extends StatefulWidget {
   @override

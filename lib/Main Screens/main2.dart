@@ -1,14 +1,14 @@
 import 'package:dnd_tinder/matches.dart';
 import 'package:flutter/material.dart';
-import 'login.dart';
-import 'settings.dart';
-import 'matches.dart';
-import 'vari.dart';
-import 'color_page.dart';
-import 'messages.dart';
+import '../Database/login.dart';
+import '../settings.dart';
+import '../matches.dart';
+import '../vari.dart';
+import '../color_page.dart';
+import '../messages.dart';
 import 'package:provider/provider.dart';
-import 'user.dart';
-import 'database.dart';
+import '../Database/user.dart';
+import '../Database/database.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -49,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
                     }else{
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) => buildPopupDialog(context, 'You must be signed in to view Matches'),
+                        builder: (BuildContext context) => buildPopupDialog(context, 'Error', 'You must be signed in to view Matches'),
                       );
                     }
                   }),
@@ -70,7 +70,7 @@ class _MainScreenState extends State<MainScreen> {
                     }else{
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) => buildPopupDialog(context, 'You must be signed in to edit Account Settings'),
+                        builder: (BuildContext context) => buildPopupDialog(context, 'Error', 'You must be signed in to edit Account Settings'),
                       );
                     }
                   }),

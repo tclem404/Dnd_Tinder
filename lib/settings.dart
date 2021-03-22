@@ -1,11 +1,11 @@
-import 'package:dnd_tinder/database.dart';
+import 'file:///C:/Users/Ty/AndroidStudioProjects/dnd_tinder/lib/Database/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'vari.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
-import 'user.dart';
-import 'main2.dart';
+import 'Database/user.dart';
+import 'Main Screens/main2.dart';
 
 class SettingsSc extends StatefulWidget {
   @override
@@ -228,7 +228,7 @@ class _SettingsScState extends State<SettingsSc> {
               }else{
                 showDialog(
                   context: context,
-                  builder: (BuildContext context) => buildPopupDialog(context, 'You must be signed in to save prefrences'),
+                  builder: (BuildContext context) => buildPopupDialog(context, 'Error', 'You must be signed in to save prefrences'),
                  );
               }
             },
@@ -239,9 +239,9 @@ class _SettingsScState extends State<SettingsSc> {
 }
 
 // stolen from https://dev.to/fluttercorner/how-to-create-popup-in-flutter-popup-menu-example-fluttercorner-com-373e
-Widget buildPopupDialog(BuildContext context, String txt) {
+Widget buildPopupDialog(BuildContext context, String title, String txt) {
   return new AlertDialog(
-    title: const Text('Error'),
+    title: Text(title),
     content: new Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,

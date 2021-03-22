@@ -1,15 +1,15 @@
 import 'package:dnd_tinder/matches.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'login.dart';
-import 'settings.dart';
-import 'matches.dart';
-import 'vari.dart';
-import 'color_page.dart';
+import '../Database/login.dart';
+import '../settings.dart';
+import '../matches.dart';
+import '../vari.dart';
+import '../color_page.dart';
 import 'main2.dart';
 import 'package:provider/provider.dart';
-import 'user.dart';
-import 'database.dart';
+import '../Database/user.dart';
+import '../Database/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 void main() {
@@ -80,7 +80,7 @@ class HomeScreen extends StatelessWidget{
                   }else{
                     showDialog(
                       context: context,
-                      builder: (BuildContext context) => buildPopupDialog(context, 'You must be signed in to view Matches'),
+                      builder: (BuildContext context) => buildPopupDialog(context,'Error', 'You must be signed in to view Matches'),
                     );
                   }
                 }),
@@ -102,7 +102,7 @@ class HomeScreen extends StatelessWidget{
                   }else{
                     showDialog(
                       context: context,
-                      builder: (BuildContext context) => buildPopupDialog(context, 'You must be signed in to edit Account Settings'),
+                      builder: (BuildContext context) => buildPopupDialog(context,'Error', 'You must be signed in to edit Account Settings'),
                     );
                   }
                 }),

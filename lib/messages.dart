@@ -1,7 +1,10 @@
+import 'package:dnd_tinder/infoDisplay.dart';
 import 'package:flutter/material.dart';
 import 'vari.dart';
 import 'package:provider/provider.dart';
-import 'user.dart';
+import 'Database/user.dart';
+import 'discordDisplay.dart';
+import 'settings.dart';
 
 class MessageSc extends StatefulWidget {
   @override
@@ -25,6 +28,12 @@ class _MessageScState extends State<MessageSc> {
     return -1;
   }
 
+  void showInfoDisplay(BuildContext context, DnDUser u){
+    Vari.setDndUser(u);
+    Navigator.push(context, new MaterialPageRoute(
+        builder: (context) => new InfoDisplay()));
+  }
+
   Widget getPage(int pg, int index){
     final users = Provider.of<List<DnDUser>>(context);
 
@@ -40,17 +49,9 @@ class _MessageScState extends State<MessageSc> {
     for(int i = low; i <= high; i++){
       int index2 = getIndex(users[index].matchArr[i]);
 
-      display.add(Row(
-        children: [
-          Text(users[index2].name + ': ' + users[index2].discord, style: TextStyle(color: Vari.getTextColor(), fontSize: 20),),
-          Spacer(),
-          RaisedButton(
-            child: Icon(Icons.arrow_forward),
-            color: Vari.getFrontColor(),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
-          )
-        ],
-      ));
+      DiscordDisplay ddU = new DiscordDisplay(users[index2], context);
+
+      display.add(ddU.display(showInfoDisplay));
 
       display.add(Spacer());
     }

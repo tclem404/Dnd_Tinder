@@ -1,6 +1,6 @@
-import 'package:dnd_tinder/database.dart';
+import 'Database/database.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'Database/user.dart';
 
 // solution to getting global variables, janky but it works fine
 class Vari{
@@ -20,6 +20,8 @@ class Vari{
   static String _edition= 'None';
 
   static int _i = -1;
+
+  static DnDUser _u;
 
   static void signIn(){
     if(_db != null){
@@ -124,6 +126,14 @@ class Vari{
 
   static int getIndex(){
     return _i;
+  }
+
+  static void setDndUser(DnDUser user){
+    _u = user;
+  }
+
+  static DnDUser getDndUser(){
+    return _u;
   }
 
 }
