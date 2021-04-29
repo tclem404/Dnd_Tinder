@@ -1,15 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'vari.dart';
 
 class SortingScreen extends StatefulWidget {
   @override
-  _SortingScreenState createState() => _SortingScreenState();
+  SortingScreenState createState() => SortingScreenState();
 }
 
-class _SortingScreenState extends State<SortingScreen> {
-
-
-
+class SortingScreenState extends State<SortingScreen> {
+  static List<bool> include = [false, false, false, false];
+  static bool dm = false;
+  static bool homebrew = false;
+  static String favClass = 'None';
+  static String edition = 'None';
 
 
   @override
@@ -27,11 +30,420 @@ class _SortingScreenState extends State<SortingScreen> {
                   Navigator.pop(context);
                 }),
               ),
-              Center(child: Text('     Settings', style: TextStyle(fontSize: 20, color: Vari.getTextColor()),)),
+              Center(child: Text('     Prefrences', style: TextStyle(fontSize: 20, color: Vari.getTextColor()),)),
             ],
           ),
         ),
-      ),
+
+
+        backgroundColor: Vari.getBackColor(),
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Container(
+              padding: EdgeInsets.fromLTRB(30, 30, 30, 30),
+              child:Row(
+                children: [
+                  Column(children: [
+                    Row(children: [Text('Category', style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()],),
+                    Spacer(),
+                    Row(children: [Text('Player Type', style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()],),
+                    Spacer(),
+                    Row(children: [Text('Homebrew', style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()],),
+                    Spacer(),
+                    Row(children: [Text('Edition', style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()],),
+                    Spacer(),
+                    Row(children: [Text('Favorite Class', style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()],),
+                  ],),
+
+                  Spacer(),
+
+                  Column(children: [
+                    Row(children: [Spacer(), Text('Include', style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()],),
+                    Spacer(),
+                    Row(children: [Spacer(),
+                      Checkbox(
+                        value: include[0],
+                        focusColor: Colors.white,
+                        activeColor: Colors.red[600],
+                        checkColor: Colors.white,
+                        onChanged: (bool val){
+                          setState(() {
+                            include[0] = val;
+                          });
+                        },
+                      ),
+                      Spacer()],),
+                    Spacer(),
+                    Row(children: [Spacer(),
+                      Checkbox(
+                        value: include[1],
+                        focusColor: Colors.white,
+                        activeColor: Colors.red[600],
+                        checkColor: Colors.white,
+                        onChanged: (bool val){
+                          setState(() {
+                            include[1] = val;
+                          });
+                        },
+                      ),
+                      Spacer()],),
+                    Spacer(),
+                    Row(children: [Spacer(),
+                      Checkbox(
+                        value: include[2],
+                        focusColor: Colors.white,
+                        activeColor: Colors.red[600],
+                        checkColor: Colors.white,
+                        onChanged: (bool val){
+                          setState(() {
+                            include[2] = val;
+                          });
+                        },
+                      ),
+                      Spacer()],),
+                    Spacer(),
+                    Row(children: [Spacer(),
+                      Checkbox(
+                        value: include[3],
+                        focusColor: Colors.white,
+                        activeColor: Colors.red[600],
+                        checkColor: Colors.white,
+                        onChanged: (bool val){
+                          setState(() {
+                            include[3] = val;
+                          });
+                        },
+                      ),
+                      Spacer()],),
+                  ],),
+
+                  Spacer(),
+
+                  Column(children: [
+                    Row(children: [Spacer(), Text('Preference', style: TextStyle(fontSize: 20, color: Vari.getTextColor()))],),
+                    Spacer(),
+                    Row(children: [Spacer(),
+                      DropdownButton<bool>(
+                        value: dm,
+                        style: TextStyle(color: Colors.white, fontSize: 20,),
+                        dropdownColor: Colors.red[600],
+                        onChanged: (bool newVal){
+                          setState(() {
+                            dm = newVal;
+                          });
+                        },
+                        //copied from Flutter documentation at: https://api.flutter.dev/flutter/material/DropdownButton-class.html
+                        items: [
+                          DropdownMenuItem(
+                            value: true,
+                            child: Text('DM'),
+                          ),
+                          DropdownMenuItem(
+                            value: false,
+                            child: Text('PC'),
+                          ),
+                        ],
+                      )
+                    ],),
+                    Spacer(),
+                    Row(children: [Spacer(),
+                      Checkbox(
+                        value: homebrew,
+                        focusColor: Colors.white,
+                        activeColor: Colors.red[600],
+                        checkColor: Colors.white,
+                        onChanged: (bool val){
+                          setState(() {
+                            homebrew = val;
+                          });
+                        },
+                      ),
+                    ],),
+                    Spacer(),
+                    Row(children: [Spacer(),
+                      DropdownButton<String>(
+                        value: edition,
+                        style: TextStyle(color: Colors.white, fontSize: 20,),
+                        dropdownColor: Colors.red[600],
+                        onChanged: (String newVal){
+                          setState(() {
+                            edition = newVal;
+                          });
+                        },
+                        //copied from Flutter documentation at: https://api.flutter.dev/flutter/material/DropdownButton-class.html
+                        items: [
+                          DropdownMenuItem(
+                            value: 'None',
+                            child: Text('None'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'DnD 1974',
+                            child: Text('DnD 1974'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Adv. DnD',
+                            child: Text('Adv. DnD'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Adv. DnD 2e',
+                            child: Text('Adv. DnD 2e'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'DnD 3e',
+                            child: Text('DnD 3e'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'DnD 3.5e',
+                            child: Text('DnD 3.5e'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'DnD 4e',
+                            child: Text('DnD 4e'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'DnD 5e',
+                            child: Text('DnD 5e'),
+                          )
+                        ],
+                      )
+                    ],),
+                    Spacer(),
+                    Row(children: [Spacer(),
+                      DropdownButton<String>(
+                        value: favClass,
+                        style: TextStyle(color: Colors.white, fontSize: 20,),
+                        dropdownColor: Colors.red[600],
+                        onChanged: (String newVal){
+                          setState(() {
+                            favClass = newVal;
+                          });
+                        },
+                        //copied from Flutter documentation at: https://api.flutter.dev/flutter/material/DropdownButton-class.html
+                        items: [
+                          DropdownMenuItem(
+                            value: 'None',
+                            child: Text('None'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Cleric',
+                            child: Text('Cleric'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Bard',
+                            child: Text('Bard'),
+                          )
+                        ],
+                      )
+                    ],),
+                  ],),
+                ],
+                ),
+              ),
+          ),
+        )
+        ),
     );
   }
 }
+
+
+Widget oldBody = Spacer(); /*Column(
+  children: [
+    // Explaination Text
+    Row(children: [
+      Text('Category', style: TextStyle(fontSize: 20, color: Vari.getTextColor())),
+      Spacer(),
+      Text('Include', style: TextStyle(fontSize: 20, color: Vari.getTextColor())),
+      Spacer(),
+      Text('Preference', style: TextStyle(fontSize: 20, color: Vari.getTextColor())),
+    ],),
+
+    Spacer(),
+
+
+    // For DM
+    Row(children: [
+      Text('Player Type', style: TextStyle(fontSize: 20, color: Vari.getTextColor())),
+      Spacer(),
+      Checkbox(
+        value: include[0],
+        focusColor: Colors.white,
+        activeColor: Colors.red[600],
+        checkColor: Colors.white,
+        onChanged: (bool val){
+          setState(() {
+            include[0] = val;
+          });
+        },
+      ),
+      Spacer(),
+      DropdownButton<bool>(
+        value: dm,
+        style: TextStyle(color: Colors.white, fontSize: 20,),
+        dropdownColor: Colors.red[600],
+        onChanged: (bool newVal){
+          setState(() {
+            dm = newVal;
+          });
+        },
+        //copied from Flutter documentation at: https://api.flutter.dev/flutter/material/DropdownButton-class.html
+        items: [
+          DropdownMenuItem(
+            value: true,
+            child: Text('DM'),
+          ),
+          DropdownMenuItem(
+            value: false,
+            child: Text('PC'),
+          ),
+        ],
+      )
+    ],),
+
+    Spacer(),
+
+
+    Row(children: [
+      Text('Homebrew', style: TextStyle(fontSize: 20, color: Vari.getTextColor())),
+      Spacer(),
+      Checkbox(
+        value: include[1],
+        focusColor: Colors.white,
+        activeColor: Colors.red[600],
+        checkColor: Colors.white,
+        onChanged: (bool val){
+          setState(() {
+            include[1] = val;
+          });
+        },
+      ),
+      Spacer(),
+      Checkbox(
+        value: homebrew,
+        focusColor: Colors.white,
+        activeColor: Colors.red[600],
+        checkColor: Colors.white,
+        onChanged: (bool val){
+          setState(() {
+            homebrew = val;
+          });
+        },
+      ),
+    ],),
+
+    Spacer(),
+
+
+    Row(children: [
+      Text('Edition', style: TextStyle(fontSize: 20, color: Vari.getTextColor())),
+      Spacer(flex: 7,),
+      Checkbox(
+        value: include[2],
+        focusColor: Colors.white,
+        activeColor: Colors.red[600],
+        checkColor: Colors.white,
+        onChanged: (bool val){
+          setState(() {
+            include[2] = val;
+          });
+        },
+      ),
+      Spacer(flex: 1,),
+      DropdownButton<String>(
+        value: edition,
+        style: TextStyle(color: Colors.white, fontSize: 20,),
+        dropdownColor: Colors.red[600],
+        onChanged: (String newVal){
+          setState(() {
+            edition = newVal;
+          });
+        },
+        //copied from Flutter documentation at: https://api.flutter.dev/flutter/material/DropdownButton-class.html
+        items: [
+          DropdownMenuItem(
+            value: 'None',
+            child: Text('None'),
+          ),
+          DropdownMenuItem(
+            value: 'DnD 1974',
+            child: Text('DnD 1974'),
+          ),
+          DropdownMenuItem(
+            value: 'Adv. DnD',
+            child: Text('Adv. DnD'),
+          ),
+          DropdownMenuItem(
+            value: 'Adv. DnD 2e',
+            child: Text('Adv. DnD 2e'),
+          ),
+          DropdownMenuItem(
+            value: 'DnD 3e',
+            child: Text('DnD 3e'),
+          ),
+          DropdownMenuItem(
+            value: 'DnD 3.5e',
+            child: Text('DnD 3.5e'),
+          ),
+          DropdownMenuItem(
+            value: 'DnD 4e',
+            child: Text('DnD 4e'),
+          ),
+          DropdownMenuItem(
+            value: 'DnD 5e',
+            child: Text('DnD 5e'),
+          )
+        ],
+      )
+    ],),
+
+    Spacer(),
+
+
+    Row(children: [
+      Text('Favorite Class', style: TextStyle(fontSize: 20, color: Vari.getTextColor())),
+      Spacer(),
+      Checkbox(
+        value: include[3],
+        focusColor: Colors.white,
+        activeColor: Colors.red[600],
+        checkColor: Colors.white,
+        onChanged: (bool val){
+          setState(() {
+            include[3] = val;
+          });
+        },
+      ),
+      Spacer(),
+      DropdownButton<String>(
+        value: favClass,
+        style: TextStyle(color: Colors.white, fontSize: 20,),
+        dropdownColor: Colors.red[600],
+        onChanged: (String newVal){
+          setState(() {
+            favClass = newVal;
+          });
+        },
+        //copied from Flutter documentation at: https://api.flutter.dev/flutter/material/DropdownButton-class.html
+        items: [
+          DropdownMenuItem(
+            value: 'None',
+            child: Text('None'),
+          ),
+          DropdownMenuItem(
+            value: 'Cleric',
+            child: Text('Cleric'),
+          ),
+          DropdownMenuItem(
+            value: 'Bard',
+            child: Text('Bard'),
+          )
+        ],
+      )
+    ],),
+
+
+    Spacer(flex: 4,)
+  ],
+),*/

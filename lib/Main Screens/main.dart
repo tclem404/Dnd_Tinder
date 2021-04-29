@@ -10,9 +10,13 @@ import 'main2.dart';
 import 'package:provider/provider.dart';
 import '../Database/user.dart';
 import '../Database/database.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dnd_tinder/messages.dart';
 
-void main() {
+void main() async {
+  // https://www.devopsschool.com/blog/flutter-core-no-app-no-firebase-app-default-has-been-created-call-firebase-initializeapp/
+  // idk what it did but it works, finally
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -26,8 +30,7 @@ class MyAppHome extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // use Vari Class to get front, back, and text colors
-    Firebase.initializeApp();
+    // use Vari Class to get front, back, and text color
 
     //Don't touch, needed for Navigator
     return StreamProvider<List<DnDUser>>.value(
@@ -36,6 +39,10 @@ class MyAppHome extends State<MyApp> {
         // The Slides
         home: new HomeScreen(),
       ),
+    );
+    return MaterialApp(
+      // The Slides
+      home: new HomeScreen(),
     );
   }
 }
@@ -136,6 +143,28 @@ class HomeScreen extends StatelessWidget{
                   Navigator.push(context, new MaterialPageRoute(builder: (context) => new MainScreen()));
                   Navigator.push(context, new MaterialPageRoute(builder: (context) => new ColorScreen()));
                 })
+              ),
+              Text(" ", style: TextStyle(fontSize: 20),),
+              RaisedButton(
+                  child: Row(
+                    children: [
+                      Icon(Icons.message, color: Vari.getTextColor()),
+                      Text('          Messages', style: TextStyle(fontSize: 18, color: Vari.getTextColor()),)
+                    ],
+                  ),
+                  color: Colors.red[600],
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
+                  onPressed: (() {
+                    if(Vari.getSignedIn()){
+                      Navigator.push(context, new MaterialPageRoute(builder: (context) => new MainScreen()));
+                      Navigator.push(context, new MaterialPageRoute(builder: (context) => new MessageSc()));
+                    }else{
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => buildPopupDialog(context,'Error', 'You must be signed in to view Messages'),
+                      );
+                    }
+                  })
               )
             ]
           ),

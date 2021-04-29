@@ -9,10 +9,10 @@ import 'Main Screens/main2.dart';
 
 class SettingsSc extends StatefulWidget {
   @override
-  _SettingsScState createState() => _SettingsScState();
+  SettingsScState createState() => SettingsScState();
 }
 
-class _SettingsScState extends State<SettingsSc> {
+class SettingsScState extends State<SettingsSc> {
   static bool _homeBrew = Vari.getHomebrew();
   static bool _dm = Vari.getDm();
   static var _class = Vari.getFavClass();
@@ -21,29 +21,28 @@ class _SettingsScState extends State<SettingsSc> {
 
   static int _index = -1;
 
-  static bool _once = false;
+  static void updateData(BuildContext context){
+    final users = Provider.of<List<DnDUser>>(context);
+
+    for (int i = 0; i < users.length; i++) {
+      if (Vari.getUid() == users[i].uid) {
+        _index = i;
+      }
+    }
+
+    Vari.setIndex(_index);
+
+    _homeBrew = users[_index].homebrew;
+    _dm = users[_index].dm;
+    _class = users[_index].favClass;
+    _edition = users[_index].edition;
+    _discord = users[_index].discord;
+  }
+
 
   @override
   Widget build(BuildContext _context) {
     final users = Provider.of<List<DnDUser>>(_context);
-
-    if(!_once) {
-      for (int i = 0; i < users.length; i++) {
-        if (Vari.getUid() == users[i].uid) {
-          _index = i;
-        }
-      }
-
-      Vari.setIndex(_index);
-
-      _homeBrew = users[_index].homebrew;
-      _dm = users[_index].dm;
-      _class = users[_index].favClass;
-      _edition = users[_index].edition;
-      _discord = users[_index].discord;
-
-      _once = !_once;
-    }
 
     return MaterialApp(
         home: Scaffold(
@@ -77,7 +76,6 @@ class _SettingsScState extends State<SettingsSc> {
                   Text('Discord Name? (For Other Users to Contact You) ', style: TextStyle(color: Colors.white, fontSize: 20),),
                   Row(
                     children: [
-                      Text('  ', style: TextStyle(color: Colors.white, fontSize: 20),),
                       Flexible(
                         child: Theme(
                           data: ThemeData(
@@ -85,13 +83,13 @@ class _SettingsScState extends State<SettingsSc> {
                             primaryColorDark: Vari.getTextColor(),
 
                           ),
-                          child: TextField(
+                          child: TextFormField(
                             controller: TextEditingController(text: _discord),
                             style: TextStyle(color: Colors.white, fontSize: 20),
-                            decoration: InputDecoration(
+                            /*decoration: InputDecoration(
                               border: OutlineInputBorder(borderSide: BorderSide(color: Vari.getTextColor())),
                               labelText:'Discord',
-                            ),
+                            ),*/
                             onChanged: ((String str){
                               _discord = str;
                             }),

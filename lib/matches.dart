@@ -1,9 +1,12 @@
+import 'package:dnd_tinder/prefrences.dart';
 import 'package:flutter/material.dart';
 import 'vari.dart';
 import 'Database/user.dart';
 import 'package:provider/provider.dart';
 import 'dart:math';
+import 'prefrences.dart';
 import 'package:flutter/gestures.dart';
+import 'package:confetti/confetti.dart';
 
 class MatchesSc extends StatefulWidget {
   @override
@@ -16,6 +19,7 @@ class _MatchesScState extends State<MatchesSc> {
   static int _i = 0;
   static int _selfIndex = 0;
   static bool matched = false;
+  static ConfettiController confettiController = ConfettiController(duration: Duration(seconds: 1));
 
   int getNewMatch(List<DnDUser> users, Random rng){
     skipped.add(_i);
@@ -26,9 +30,11 @@ class _MatchesScState extends State<MatchesSc> {
 
     if(users.elementAt(_selfIndex).possibleMatches.length == 0) {
       matched = false;
-      while (users
-          .elementAt(_i)
-          .uid == Vari.getUid() || skipped.contains(_i)) {
+      while ((users.elementAt(_i).uid == Vari.getUid() || skipped.contains(_i)) ||
+          (SortingScreenState.include[0] && SortingScreenState.dm != users[_i].dm) ||
+          (SortingScreenState.include[1] && SortingScreenState.homebrew != users[_i].homebrew) ||
+          (SortingScreenState.include[2] && SortingScreenState.favClass != users[_i].favClass) ||
+          (SortingScreenState.include[3] && SortingScreenState.edition != users[_i].edition)) {
         _i = rng.nextInt(users.length);
       }
     }else{
@@ -96,7 +102,7 @@ class _MatchesScState extends State<MatchesSc> {
                 icon: Icon(Icons.settings),
                 color: Vari.getTextColor(),
                 onPressed: (() {
-                  Navigator.pop(_context);
+                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new SortingScreen()));
                 }),
               ),
             ],
@@ -107,6 +113,14 @@ class _MatchesScState extends State<MatchesSc> {
             padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
             child: Column(
               children: [
+                ConfettiWidget(
+                  blastDirectionality: BlastDirectionality.explosive,
+                  shouldLoop: false,
+                  confettiController: confettiController,
+                  numberOfParticles: 20,
+                  gravity: 0.2,
+                  emissionFrequency: .25,
+                ),
                 Text("Name: " + users.elementAt(_i).name, style: TextStyle(fontSize: 20, color: Vari.getTextColor())),
                 Text("Type: " + (users.elementAt(_i).dm ? 'DM' : 'PC'), style: TextStyle(fontSize: 20, color: Vari.getTextColor())),
                 Row(
@@ -140,6 +154,7 @@ class _MatchesScState extends State<MatchesSc> {
                         child: Icon(Icons.check, color: Vari.getTextColor()),
                         color: Vari.getFrontColor(),
                         onPressed: ((){
+                          confettiController.play();
                           setState(() {
                             if(!matched){
                               DnDUser u = users.elementAt(_i);
@@ -158,7 +173,6 @@ class _MatchesScState extends State<MatchesSc> {
                           });
                         }),
                       ),
-
                   ],
                 ),
               ],

@@ -19,14 +19,14 @@ class _InfoDisplayState extends State<InfoDisplay> {
         backgroundColor: Vari.getFrontColor(),
         title: Row(
           children: [
-            IconButton(
+            /*IconButton(
               icon: Icon(Icons.arrow_back),
               color: Vari.getTextColor(),
               onPressed: (() {
                 Navigator.pop(context);
               }),
-            ),
-            Center(child: Text('Info: ' + u.name, style: TextStyle(fontSize: 20, color: Vari.getTextColor()),)),
+            ),*/
+            Text('Info: ' + u.name, style: TextStyle(fontSize: 20, color: Vari.getTextColor()),),
           ],
         ),
       ),
@@ -34,15 +34,15 @@ class _InfoDisplayState extends State<InfoDisplay> {
         padding: EdgeInsets.fromLTRB(30, 30, 30, 30),
         child: Column(
           children: [
-            Text('Name: ' + u.name, style: TextStyle(fontSize: 20, color: Vari.getTextColor())),
+            Row(children: [Text('Name: ' + u.name, style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
             Spacer(),
-            Text('Role: ' + (u.dm ? 'DM' : 'PC'), style: TextStyle(fontSize: 20, color: Vari.getTextColor())),
+            Row(children: [Text('Role: ' + (u.dm ? 'DM' : 'PC'), style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
             Spacer(),
-            Text('Edition: ' + u.edition, style: TextStyle(fontSize: 20, color: Vari.getTextColor())),
+            Row(children: [Text('Favorite Edition: ' + u.edition, style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
             Spacer(),
-            Text('Style: ' + (u.homebrew ? 'Homebrew' : 'No Homebrew'), style: TextStyle(fontSize: 20, color: Vari.getTextColor())),
+            Row(children: [Text('Homebrew Prefrences: ' + (u.homebrew ? 'Homebrew Welcome' : 'No Homebrew'), style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
             Spacer(),
-            Text('Favorite Class: ' + u.favClass, style: TextStyle(fontSize: 20, color: Vari.getTextColor())),
+            Row(children: [Text('Favorite Class: ' + u.favClass, style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
           ],
         ),
       ),

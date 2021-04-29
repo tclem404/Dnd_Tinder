@@ -60,6 +60,14 @@ class DatabaseService{
 
     }
 
+    String getUserName(){
+      DocumentReference userDoc = users.doc(uid);
+      userDoc.get().then((doc){
+        return (doc.data()['name'].toString() ?? 'New User');
+      });
+      return 'New User';
+    }
+
     // User List from stream
   List<DnDUser> _userListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
@@ -79,7 +87,6 @@ class DatabaseService{
       );
     }).toList();
   }
-
 
     // getting a stream (?)
     Stream<List<DnDUser>> get userInfo{

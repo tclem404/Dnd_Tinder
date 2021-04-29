@@ -114,7 +114,14 @@ class _MainScreenState extends State<MainScreen> {
                     color: Colors.red[600],
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
                     onPressed: (() {
-                      Navigator.push(context, new MaterialPageRoute(builder: (context) => new MessageSc()));
+                      if(Vari.getSignedIn()){
+                        Navigator.push(context, new MaterialPageRoute(builder: (context) => new MessageSc()));
+                      }else{
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => buildPopupDialog(context,'Error', 'You must be signed in to view Messages'),
+                        );
+                      }
                     })
                 )
               ]

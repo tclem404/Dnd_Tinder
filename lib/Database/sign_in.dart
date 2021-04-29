@@ -1,4 +1,6 @@
 // All from tutorial on: https://blog.codemagic.io/firebase-authentication-google-sign-in-using-flutter/
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -64,31 +66,67 @@ class UserSaver{
   }
 }
 
-class FirstScreen extends StatelessWidget{
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      backgroundColor: Colors.white10,
-      body: Center(
-          child: Row(
-            children: [
-              Text('                            ', style: TextStyle(fontSize: 15),),
+Future registerWithEmailAndPassword(String name, String email, String password) async {
+  try{
+    UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+    User user = result.user;
 
-              Center(
-                  child: RaisedButton(
-                    textColor: Colors.white,
-                    color: Colors.red[600],
-                    onPressed: (){
-                      signInWithGoogle().then((result) {
-                        signOutGoogle();
-                      });
-                    },
-                    child: Text('Sign Out', style: TextStyle(fontSize: 20),),
-                  )
-              )
-            ],
-          )
-      ),
-    );
+    if (user != null) {
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+
+      final User currentUser = _auth.currentUser;
+      assert(user.uid == currentUser.uid);
+
+      UserSaver.setUser(user);
+
+      // database stuff
+      Vari.setUid(user.uid);
+      DatabaseService db = DatabaseService(uid: user.uid);
+      Vari.setName(name);
+      await db.createUserData(name);
+      Vari.setDatabase(db);
+
+      print('registerWithEmailAndPassword succeeded: $user');
+
+      return '$user';
+    }
+  }catch(e){
+    print(e.toString());
+    return null;
+  }
+}
+
+Future signInWithEmailAndPassword(String email, String password) async {
+  try{
+    UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+    User user = result.user;
+
+    if (user != null) {
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+
+      final User currentUser = _auth.currentUser;
+      assert(user.uid == currentUser.uid);
+
+      UserSaver.setUser(user);
+
+      // database stuff
+      Vari.setUid(user.uid);
+      DatabaseService db = DatabaseService(uid: user.uid);
+
+
+
+      Vari.setName(db.getUserName());
+      await db.createUserData(db.getUserName());
+      Vari.setDatabase(db);
+
+      print('signedInWithEmailAndPassword succeeded: $user');
+
+      return '$user';
+    }
+  }catch(e){
+    print(e.toString());
+    return null;
   }
 }
