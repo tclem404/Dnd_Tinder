@@ -67,7 +67,6 @@ class UserSaver{
 }
 
 Future registerWithEmailAndPassword(String name, String email, String password) async {
-  try{
     UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
     User user = result.user;
 
@@ -91,10 +90,8 @@ Future registerWithEmailAndPassword(String name, String email, String password) 
 
       return '$user';
     }
-  }catch(e){
-    print(e.toString());
+
     return null;
-  }
 }
 
 Future signInWithEmailAndPassword(String email, String password) async {

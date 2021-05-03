@@ -72,45 +72,35 @@ class LoginStState extends State<LoginSc> {
             children: [
               Text('Not Signed In', style: TextStyle(fontSize: 30, color: Vari.getTextColor()),),
               Spacer(),
-              Row(
-                children: [
-                  Center(
-                      child: Column(
-                          children: [
-                            RaisedButton(
-                              textColor: Vari.getTextColor(),
-                              color: Vari.getFrontColor(),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
-                              onPressed: (){
-                                signInWithGoogle().then((result) {
-                                  if (result != null) {
-                                    setState(() {
-                                      Vari.setSignedIn();
-                                      SettingsScState.updateData(context);
-                                    });
-                                  }
-                                });
-                              },
-                              child: Text('Sign In with Google', style: TextStyle(fontSize: 20, color: Vari.getTextColor()),),
-                            ),
-                            SizedBox(height: 30.0,),
-                            RaisedButton(
-                              textColor: Vari.getTextColor(),
-                              color: Vari.getFrontColor(),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
-                              onPressed: (){
-                                if(Vari.getSignedIn()){
-                                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new emailSignIn()));
-                                }else{
-                                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new emailSignIn()));
-                                }
-                              },
-                              child: Text('Sign In/Register with Email', style: TextStyle(fontSize: 20, color: Vari.getTextColor()),),
-                            )
-                          ]
-                      )
-                  ),
-                ],
+              RaisedButton(
+                textColor: Vari.getTextColor(),
+                color: Vari.getFrontColor(),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
+                onPressed: (){
+                  signInWithGoogle().then((result) {
+                    if (result != null) {
+                      setState(() {
+                        Vari.setSignedIn();
+                        SettingsScState.updateData(context);
+                      });
+                    }
+                  });
+                },
+                child: Text('Sign In with Google', style: TextStyle(fontSize: 20, color: Vari.getTextColor()),),
+              ),
+              SizedBox(height: 30.0,),
+              RaisedButton(
+                textColor: Vari.getTextColor(),
+                color: Vari.getFrontColor(),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
+                onPressed: (){
+                  if(Vari.getSignedIn()){
+                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new emailSignIn()));
+                  }else{
+                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new emailSignIn()));
+                  }
+                },
+                child: Text('Sign In/Register with Email', style: TextStyle(fontSize: 20, color: Vari.getTextColor()),),
               ),
               Spacer(flex: 4,)
             ],

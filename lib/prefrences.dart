@@ -46,23 +46,23 @@ class SortingScreenState extends State<SortingScreen> {
               child:Row(
                 children: [
                   Column(children: [
-                    Row(children: [Text('Category', style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()],),
-                    Spacer(),
-                    Row(children: [Text('Player Type', style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()],),
-                    Spacer(),
-                    Row(children: [Text('Homebrew', style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()],),
-                    Spacer(),
-                    Row(children: [Text('Edition', style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()],),
-                    Spacer(),
-                    Row(children: [Text('Favorite Class', style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()],),
+                    Center(child: Text('Category', style: TextStyle(fontSize: 20, color: Vari.getTextColor())),),
+                    SizedBox(height: 35,),
+                    Center(child: Text('Player Type', style: TextStyle(fontSize: 20, color: Vari.getTextColor())),),
+                    SizedBox(height: 45,),
+                    Center(child: Text('Homebrew', style: TextStyle(fontSize: 20, color: Vari.getTextColor())),),
+                    SizedBox(height: 45,),
+                    Center(child: Text('Edition', style: TextStyle(fontSize: 20, color: Vari.getTextColor())),),
+                    SizedBox(height: 45,),
+                    Center(child: Text('Favorite Class', style: TextStyle(fontSize: 20, color: Vari.getTextColor())),),
                   ],),
 
                   Spacer(),
 
                   Column(children: [
-                    Row(children: [Spacer(), Text('Include', style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()],),
-                    Spacer(),
-                    Row(children: [Spacer(),
+                    Center(child: Text('Include', style: TextStyle(fontSize: 20, color: Vari.getTextColor())),),
+                    SizedBox(height: 20,),
+                    Center(child:
                       Checkbox(
                         value: include[0],
                         focusColor: Colors.white,
@@ -74,9 +74,9 @@ class SortingScreenState extends State<SortingScreen> {
                           });
                         },
                       ),
-                      Spacer()],),
-                    Spacer(),
-                    Row(children: [Spacer(),
+                    ),
+                    SizedBox(height: 20,),
+                    Center(child:
                       Checkbox(
                         value: include[1],
                         focusColor: Colors.white,
@@ -88,9 +88,9 @@ class SortingScreenState extends State<SortingScreen> {
                           });
                         },
                       ),
-                      Spacer()],),
-                    Spacer(),
-                    Row(children: [Spacer(),
+                    ),
+                    SizedBox(height: 20,),
+                    Center(child:
                       Checkbox(
                         value: include[2],
                         focusColor: Colors.white,
@@ -102,9 +102,9 @@ class SortingScreenState extends State<SortingScreen> {
                           });
                         },
                       ),
-                      Spacer()],),
-                    Spacer(),
-                    Row(children: [Spacer(),
+                    ),
+                    SizedBox(height: 20,),
+                    Center(child:
                       Checkbox(
                         value: include[3],
                         focusColor: Colors.white,
@@ -116,15 +116,15 @@ class SortingScreenState extends State<SortingScreen> {
                           });
                         },
                       ),
-                      Spacer()],),
+                    ),
                   ],),
 
                   Spacer(),
 
                   Column(children: [
-                    Row(children: [Spacer(), Text('Preference', style: TextStyle(fontSize: 20, color: Vari.getTextColor()))],),
-                    Spacer(),
-                    Row(children: [Spacer(),
+                    Center(child: Text('Preference', style: TextStyle(fontSize: 20, color: Vari.getTextColor())),),
+                    SizedBox(height: 20,),
+                    Center(child:
                       DropdownButton<bool>(
                         value: dm,
                         style: TextStyle(color: Colors.white, fontSize: 20,),
@@ -145,10 +145,10 @@ class SortingScreenState extends State<SortingScreen> {
                             child: Text('PC'),
                           ),
                         ],
-                      )
-                    ],),
-                    Spacer(),
-                    Row(children: [Spacer(),
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    Center(child:
                       Checkbox(
                         value: homebrew,
                         focusColor: Colors.white,
@@ -160,9 +160,9 @@ class SortingScreenState extends State<SortingScreen> {
                           });
                         },
                       ),
-                    ],),
-                    Spacer(),
-                    Row(children: [Spacer(),
+                    ),
+                    SizedBox(height: 20,),
+                    Center(child:
                       DropdownButton<String>(
                         value: edition,
                         style: TextStyle(color: Colors.white, fontSize: 20,),
@@ -207,10 +207,9 @@ class SortingScreenState extends State<SortingScreen> {
                             child: Text('DnD 5e'),
                           )
                         ],
-                      )
-                    ],),
-                    Spacer(),
-                    Row(children: [Spacer(),
+                      ),),
+                    SizedBox(height: 20,),
+                    Center(child:
                       DropdownButton<String>(
                         value: favClass,
                         style: TextStyle(color: Colors.white, fontSize: 20,),
@@ -236,7 +235,7 @@ class SortingScreenState extends State<SortingScreen> {
                           )
                         ],
                       )
-                    ],),
+                    ,),
                   ],),
                 ],
                 ),

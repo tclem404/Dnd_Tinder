@@ -97,7 +97,7 @@ class _MessageScState extends State<MessageSc> {
       }
     }
 
-    pages = (users[_index].matchArr.length / 5).ceil();
+    pages = (users[_index].matchArr.length == 0 ? 0 : (users[_index].matchArr.length / 5).ceil());
 
     return MaterialApp(
         home: Scaffold(
