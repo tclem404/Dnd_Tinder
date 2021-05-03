@@ -32,18 +32,21 @@ class _InfoDisplayState extends State<InfoDisplay> {
       ),
       body: Container(
         padding: EdgeInsets.fromLTRB(30, 30, 30, 30),
-        child: Column(
-          children: [
-            Row(children: [Text('Name: ' + u.name, style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
-            Spacer(),
-            Row(children: [Text('Role: ' + (u.dm ? 'DM' : 'PC'), style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
-            Spacer(),
-            Row(children: [Text('Favorite Edition: ' + u.edition, style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
-            Spacer(),
-            Row(children: [Text('Homebrew Prefrences: ' + (u.homebrew ? 'Homebrew Welcome' : 'No Homebrew'), style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
-            Spacer(),
-            Row(children: [Text('Favorite Class: ' + u.favClass, style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
-          ],
+        child: Flexible(
+          child: Column(
+            children: [
+              Row(children: [Text('Name: ' + u.name, style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
+              Spacer(),
+              Row(children: [Text('Role: ' + (u.dm ? 'DM' : 'PC'), style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
+              Spacer(),
+              Row(children: [Text('Favorite Edition: ' + u.edition, style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
+              Spacer(),
+              Row(children: [Text('Homebrew Prefrences: ' + (u.homebrew ? 'Homebrew Welcome' : 'No Homebrew'), style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
+              Spacer(),
+              Row(children: [Text('Favorite Class: ' + u.favClass, style: TextStyle(fontSize: 20, color: Vari.getTextColor())), Spacer()]),
+              Spacer(flex: 2,)
+            ],
+          ),
         ),
       ),
     );

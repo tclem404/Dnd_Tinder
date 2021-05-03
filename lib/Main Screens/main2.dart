@@ -23,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
         appBar: AppBar(
           leading: Container(),
           title: Center(
-            child: Text('Welcome to [Name not yet decided]', style: TextStyle(fontSize: 20, color: Vari.getTextColor()),),
+            child: Text('Welcome to DnDinder', style: TextStyle(fontSize: 20, color: Vari.getTextColor()),),
           ),
           backgroundColor: Vari.getFrontColor(),
         ),

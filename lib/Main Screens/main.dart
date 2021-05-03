@@ -61,7 +61,7 @@ class HomeScreen extends StatelessWidget{
       backgroundColor: _backColor,
       appBar: AppBar(
         title: Center(
-          child: Text('Welcome to [Name not yet decided]', style: TextStyle(fontSize: 20, color: _textColor),),
+          child: Text('Welcome to DnDinder', style: TextStyle(fontSize: 20, color: _textColor),),
         ),
         backgroundColor: _frontColor,
       ),

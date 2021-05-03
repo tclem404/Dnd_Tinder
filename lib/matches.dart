@@ -38,8 +38,8 @@ class _MatchesScState extends State<MatchesSc> {
       while (((_i == -1 || users.elementAt(_i).uid == Vari.getUid()) || skipped.contains(_i)) ||
           (SortingScreenState.include[0] && SortingScreenState.dm != users[_i].dm) ||
           (SortingScreenState.include[1] && SortingScreenState.homebrew != users[_i].homebrew) ||
-          (SortingScreenState.include[2] && SortingScreenState.favClass != users[_i].favClass) ||
-          (SortingScreenState.include[3] && SortingScreenState.edition != users[_i].edition)) {
+          (SortingScreenState.include[3] && SortingScreenState.favClass != users[_i].favClass) ||
+          (SortingScreenState.include[2] && SortingScreenState.edition != users[_i].edition)) {
         _i = rng.nextInt(users.length);
         loops++;
         if(loops > 3 * users.length){
