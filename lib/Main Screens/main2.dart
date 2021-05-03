@@ -1,13 +1,14 @@
 import 'package:dnd_tinder/matches.dart';
 import 'package:flutter/material.dart';
-import 'login.dart';
-import 'settings.dart';
-import 'matches.dart';
-import 'vari.dart';
-import 'color_page.dart';
+import '../Database/login.dart';
+import '../settings.dart';
+import '../matches.dart';
+import '../vari.dart';
+import '../color_page.dart';
+import '../messages.dart';
 import 'package:provider/provider.dart';
-import 'user.dart';
-import 'database.dart';
+import '../Database/user.dart';
+import '../Database/database.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
         appBar: AppBar(
           leading: Container(),
           title: Center(
-            child: Text('Welcome to [Name not yet decided]', style: TextStyle(fontSize: 20, color: Vari.getTextColor()),),
+            child: Text('Welcome to DnDinder', style: TextStyle(fontSize: 20, color: Vari.getTextColor()),),
           ),
           backgroundColor: Vari.getFrontColor(),
         ),
@@ -42,7 +43,15 @@ class _MainScreenState extends State<MainScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
                   onPressed: (() {
                     // Function to move to a screen, just replace 'MatchesSc' with you Stateless/ful widget to use in THIS widget
-                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new MatchesSc()));
+                    if(Vari.getSignedIn()) {
+                      Navigator.push(context, new MaterialPageRoute(
+                          builder: (context) => new MatchesSc()));
+                    }else{
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => buildPopupDialog(context, 'Error', 'You must be signed in to view Matches'),
+                      );
+                    }
                   }),
                 ),
                 Text(" ", style: TextStyle(fontSize: 20),), // Just spacing, need new solution Eventually, not now
@@ -61,7 +70,7 @@ class _MainScreenState extends State<MainScreen> {
                     }else{
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) => buildPopupDialog(context, 'You must be signed in to edit Account Settings'),
+                        builder: (BuildContext context) => buildPopupDialog(context, 'Error', 'You must be signed in to edit Account Settings'),
                       );
                     }
                   }),
@@ -92,6 +101,27 @@ class _MainScreenState extends State<MainScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
                     onPressed: (() {
                       Navigator.push(context, new MaterialPageRoute(builder: (context) => new ColorScreen()));
+                    })
+                ),
+                Text(" ", style: TextStyle(fontSize: 20),),
+                RaisedButton(
+                    child: Row(
+                      children: [
+                        Icon(Icons.message, color: Vari.getTextColor()),
+                        Text('          Messages', style: TextStyle(fontSize: 18, color: Vari.getTextColor()),)
+                      ],
+                    ),
+                    color: Colors.red[600],
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
+                    onPressed: (() {
+                      if(Vari.getSignedIn()){
+                        Navigator.push(context, new MaterialPageRoute(builder: (context) => new MessageSc()));
+                      }else{
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => buildPopupDialog(context,'Error', 'You must be signed in to view Messages'),
+                        );
+                      }
                     })
                 )
               ]

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'sign_in.dart';
-import 'main.dart';
+import 'Database/sign_in.dart';
+import 'Main Screens/main.dart';
 import 'vari.dart';
 
 class LoginPageState extends State<MyApp>{
-  bool _signedIn = false;
+  bool _signedIn = Vari.getSignedIn();
 
   @override
   Widget build(BuildContext _context) {
@@ -195,19 +195,4 @@ class LoginPage{
     return page;
   }
 
-  bool getState(){
-    return _signedIn;
-  }
-
-  void setBackColor(Color col){
-    _backColor = col;
-  }
-
-  void setFrontColor(Color col){
-    _frontColor = col;
-  }
-
-  void setTextColor(Color col){
-    _textColor = col;
-  }
 }
